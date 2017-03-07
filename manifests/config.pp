@@ -24,9 +24,9 @@ class elasticsearch::config {
     file {
       $elasticsearch::configdir:
         ensure => 'directory',
-        group  => $elasticsearch::elasticsearch_group,
+        group  => 'root',
         owner  => 'root',
-        mode   => '2750';
+        mode   => '0644';
       $elasticsearch::datadir:
         ensure => 'directory',
         group  => $elasticsearch::elasticsearch_group,
@@ -38,8 +38,8 @@ class elasticsearch::config {
         mode   => '0750';
       $elasticsearch::plugindir:
         ensure => 'directory',
-        group  => $elasticsearch::elasticsearch_group,
-        owner  => $elasticsearch::elasticsearch_user,
+        group  => 'root',
+        owner  => 'root',
         mode   => 'o+Xr';
       "${elasticsearch::homedir}/lib":
         ensure  => 'directory',
@@ -48,25 +48,25 @@ class elasticsearch::config {
         recurse => true;
       $elasticsearch::homedir:
         ensure => 'directory',
-        group  => $elasticsearch::elasticsearch_group,
-        owner  => $elasticsearch::elasticsearch_user;
-      "${elasticsearch::homedir}/templates_import":
+        group  => 'root',
+        owner  => 'root';
+      "${elasticsearch::params::homedir}/templates_import":
         ensure => 'directory',
-        group  => $elasticsearch::elasticsearch_group,
-        owner  => $elasticsearch::elasticsearch_user,
-        mode   => '0755';
-      "${elasticsearch::homedir}/scripts":
+        group  => 'root',
+        owner  => 'root',
+        mode   => '0644';
+      "${elasticsearch::params::homedir}/scripts":
         ensure => 'directory',
-        group  => $elasticsearch::elasticsearch_group,
-        owner  => $elasticsearch::elasticsearch_user,
-        mode   => '0755';
+        group  => 'root',
+        owner  => 'root',
+        mode   => '0644';
       "${elasticsearch::configdir}/scripts":
         ensure  => 'directory',
         source  => "${elasticsearch::homedir}/scripts",
         mode    => '0755',
         recurse => 'remote',
-        owner   => $elasticsearch::elasticsearch_user,
-        group   => $elasticsearch::elasticsearch_group;
+        owner   => 'root',
+        group   => 'root';
       '/etc/elasticsearch/elasticsearch.yml':
         ensure => 'absent';
       '/etc/elasticsearch/jvm.options':
@@ -127,7 +127,7 @@ class elasticsearch::config {
       file { "${elasticsearch::defaults_location}/elasticsearch":
         ensure => 'file',
         group  => $elasticsearch::elasticsearch_group,
-        owner  => $elasticsearch::elasticsearch_user,
+        owner  => 'root',
         mode   => '0640';
       }
     }
