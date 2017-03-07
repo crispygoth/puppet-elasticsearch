@@ -581,31 +581,31 @@ describe 'elasticsearch::instance', :type => 'define' do
           .with(:owner => owner) }
         it { should contain_file('/etc/elasticsearch/es-instance')
           .with(
-            :owner => owner,
-            :group => group
+            :owner => 'root',
+            :group => 'root'
           ) }
         it { should contain_datacat('/etc/elasticsearch/es-instance/elasticsearch.yml')
           .with(
-            :owner => owner,
+            :owner => 'root',
             :group => group,
             :mode  => '0440'
           ) }
         it { should contain_file('/etc/elasticsearch/es-instance/elasticsearch.yml')
           .with(
-            :owner => owner,
+            :owner => 'root',
             :group => group,
             :mode  => '0440'
           ) }
         it { should contain_file('/etc/elasticsearch/es-instance/logging.yml')
           .with(
-            :owner => owner,
-            :group => group,
+            :owner => 'root',
+            :group => 'root',
             :mode  => '0644'
           ) }
         it { should contain_file('/etc/elasticsearch/es-instance/log4j2.properties')
           .with(
-            :owner => owner,
-            :group => group,
+            :owner => 'root',
+            :group => 'root',
             :mode  => '0644'
           ) }
 
@@ -689,8 +689,9 @@ describe 'elasticsearch::instance', :type => 'define' do
               '/etc/elasticsearch/es-instance/shield/system_key'
             ).with(
               :source => '/tmp/key',
-              :mode => '0400',
-              :owner => 'elasticsearch'
+              :mode => '0440',
+              :owner => 'root',
+              :group => 'elasticsearch'
             ) }
           end
 
@@ -706,8 +707,9 @@ describe 'elasticsearch::instance', :type => 'define' do
               '/etc/elasticsearch/es-instance/x-pack/system_key'
             ).with(
               :source => 'puppet:///test/key',
-              :mode => '0400',
-              :owner => 'elasticsearch'
+              :mode => '0440',
+              :owner => 'root',
+              :group => 'elasticsearch'
             ) }
           end
         end

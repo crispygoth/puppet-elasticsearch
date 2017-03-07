@@ -165,8 +165,8 @@ define elasticsearch::instance (
 ) {
 
   File {
-    owner => $elasticsearch::elasticsearch_user,
-    group => $elasticsearch::elasticsearch_group,
+    owner => 'root',
+    group => 'root',
   }
 
   Exec {
@@ -393,9 +393,7 @@ define elasticsearch::instance (
     file { "${configdir}/jvm.options":
       before  => Elasticsearch::Service[$name],
       content => template("${module_name}/etc/elasticsearch/jvm.options.erb"),
-      group   => $elasticsearch::elasticsearch_group,
       notify  => $notify_service,
-      owner   => $elasticsearch::elasticsearch_user,
     }
 
     file {
@@ -434,7 +432,8 @@ define elasticsearch::instance (
       file { "${configdir}/${security_plugin}/system_key":
         ensure  => 'file',
         source  => $system_key,
-        mode    => '0400',
+        mode    => '0440',
+        group   => $elasticsearch::elasticsearch_group,
         before  => Elasticsearch::Service[$name],
         require => File["${configdir}/${security_plugin}"],
       }
@@ -481,7 +480,7 @@ define elasticsearch::instance (
       template => "${module_name}/etc/elasticsearch/elasticsearch.yml.erb",
       notify   => $notify_service,
       require  => Class['elasticsearch::package'],
-      owner    => $elasticsearch::elasticsearch_user,
+      owner    => 'root',
       group    => $elasticsearch::elasticsearch_group,
       mode     => '0440',
     }
