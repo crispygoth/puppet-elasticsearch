@@ -36,8 +36,8 @@ class elasticsearch::config {
     file {
       $elasticsearch::configdir:
         ensure => 'directory',
-        group  => $elasticsearch::elasticsearch_group,
-        owner  => $elasticsearch::elasticsearch_user,
+        group  => 'root',
+        owner  => 'root',
         mode   => '0644';
       $elasticsearch::datadir:
         ensure => 'directory',
@@ -51,8 +51,8 @@ class elasticsearch::config {
         recurse => true;
       $elasticsearch::plugindir:
         ensure => 'directory',
-        group  => $elasticsearch::elasticsearch_group,
-        owner  => $elasticsearch::elasticsearch_user,
+        group  => 'root',
+        owner  => 'root',
         mode   => 'o+Xr';
       "${elasticsearch::homedir}/lib":
         ensure  => 'directory',
@@ -61,17 +61,17 @@ class elasticsearch::config {
         recurse => true;
       $elasticsearch::params::homedir:
         ensure => 'directory',
-        group  => $elasticsearch::elasticsearch_group,
-        owner  => $elasticsearch::elasticsearch_user;
+        group  => 'root',
+        owner  => 'root';
       "${elasticsearch::params::homedir}/templates_import":
         ensure => 'directory',
-        group  => $elasticsearch::elasticsearch_group,
-        owner  => $elasticsearch::elasticsearch_user,
+        group  => 'root',
+        owner  => 'root',
         mode   => '0644';
       "${elasticsearch::params::homedir}/scripts":
         ensure => 'directory',
-        group  => $elasticsearch::elasticsearch_group,
-        owner  => $elasticsearch::elasticsearch_user,
+        group  => 'root',
+        owner  => 'root',
         mode   => '0644';
       '/etc/elasticsearch/elasticsearch.yml':
         ensure => 'absent';
@@ -124,8 +124,8 @@ class elasticsearch::config {
     $jvm_options = $elasticsearch::jvm_options
     file { "${elasticsearch::configdir}/jvm.options":
       content => template("${module_name}/etc/elasticsearch/jvm.options.erb"),
-      owner   => $elasticsearch::elasticsearch_user,
-      group   => $elasticsearch::elasticsearch_group,
+      owner   => 'root',
+      group   => 'root',
     }
 
   } elsif ( $elasticsearch::ensure == 'absent' ) {
