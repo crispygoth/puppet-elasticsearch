@@ -62,7 +62,7 @@ describe 'elasticsearch', :type => 'class' do
         should contain_file("#{defaults_path}/elasticsearch").with(
           :ensure => 'file',
           :group  => 'elasticsearch',
-          :owner  => 'elasticsearch',
+          :owner  => 'root',
           :mode   => '0640'
         )
       end
@@ -336,7 +336,7 @@ describe 'elasticsearch', :type => 'class' do
         end
 
         it { should contain_file('/etc/elasticsearch')
-          .with(:owner => 'root', :group => 'myesgroup') }
+          .with(:owner => 'root', :group => 'root') }
         it { should contain_file('/var/log/elasticsearch')
           .with(:owner => 'myesuser') }
         it { should contain_file('/usr/share/elasticsearch')

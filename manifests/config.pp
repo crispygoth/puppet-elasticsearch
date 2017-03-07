@@ -24,9 +24,9 @@ class elasticsearch::config {
     file {
       $elasticsearch::configdir:
         ensure => 'directory',
-        group  => $elasticsearch::elasticsearch_group,
+        group  => 'root',
         owner  => 'root',
-        mode   => '2750';
+        mode   => '0755';
       $elasticsearch::datadir:
         ensure => 'directory',
         group  => $elasticsearch::elasticsearch_group,
@@ -65,8 +65,8 @@ class elasticsearch::config {
         source  => "${elasticsearch::homedir}/scripts",
         mode    => '0755',
         recurse => 'remote',
-        owner   => $elasticsearch::elasticsearch_user,
-        group   => $elasticsearch::elasticsearch_group;
+        owner   => 'root',
+        group   => 'root';
       '/etc/elasticsearch/elasticsearch.yml':
         ensure => 'absent';
       '/etc/elasticsearch/jvm.options':
@@ -127,7 +127,7 @@ class elasticsearch::config {
       file { "${elasticsearch::defaults_location}/elasticsearch":
         ensure => 'file',
         group  => $elasticsearch::elasticsearch_group,
-        owner  => $elasticsearch::elasticsearch_user,
+        owner  => 'root',
         mode   => '0640';
       }
     }
