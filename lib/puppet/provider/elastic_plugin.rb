@@ -2,7 +2,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', '..'))
 
 require 'uri'
 require 'puppet_x/elastic/es_versioning'
-require 'puppet_x/elastic/plugin_name'
+require 'puppet_x/elastic/plugin_parsing'
 
 # Generalized parent class for providers that behave like Elasticsearch's plugin
 # command line tool.
@@ -209,9 +209,14 @@ class Puppet::Provider::ElasticPlugin < Puppet::Provider
   # Run a command wrapped in necessary env vars
   def with_environment(&block)
     env_vars = {
-      'ES_JAVA_OPTS' => []
+      'ES_JAVA_OPTS' => @resource[:java_opts],
+      'ES_PATH_CONF' => @resource[:configdir],
     }
     saved_vars = {}
+
+    unless @resource[:java_home].nil? or @resource[:java_home] == ''
+      env_vars['JAVA_HOME'] = @resource[:java_home]
+    end
 
     if !is2x? and @resource[:proxy]
       env_vars['ES_JAVA_OPTS'] += proxy_args(@resource[:proxy])
