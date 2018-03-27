@@ -560,32 +560,32 @@ describe 'elasticsearch::instance', :type => 'define' do
           .with(:owner => owner) }
         it { should contain_file('/etc/elasticsearch/es-instance')
           .with(
-            :owner => owner,
-            :group => group,
+            :owner => 'root',
+            :group => 'root',
             :mode  => '0755'
           ) }
         it { should contain_datacat('/etc/elasticsearch/es-instance/elasticsearch.yml')
           .with(
-            :owner => owner,
-            :group => group,
+            :owner => 'root',
+            :group => 'root',
             :mode  => '0440'
           ) }
         it { should contain_file('/etc/elasticsearch/es-instance/elasticsearch.yml')
           .with(
-            :owner => owner,
-            :group => group,
+            :owner => 'root',
+            :group => 'root',
             :mode  => '0440'
           ) }
         it { should contain_file('/etc/elasticsearch/es-instance/logging.yml')
           .with(
-            :owner => owner,
-            :group => group,
+            :owner => 'root',
+            :group => 'root',
             :mode  => '0644'
           ) }
         it { should contain_file('/etc/elasticsearch/es-instance/log4j2.properties')
           .with(
-            :owner => owner,
-            :group => group,
+            :owner => 'root',
+            :group => 'root',
             :mode  => '0644'
           ) }
 
