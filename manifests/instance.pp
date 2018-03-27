@@ -453,8 +453,8 @@ define elasticsearch::instance (
       template => "${module_name}/etc/elasticsearch/elasticsearch.yml.erb",
       notify   => $notify_service,
       require  => Class['elasticsearch::package'],
-      owner    => $elasticsearch::elasticsearch_user,
-      group    => $elasticsearch::elasticsearch_group,
+      owner    => 'root',
+      group    => 'root',
       mode     => '0440',
     }
 
