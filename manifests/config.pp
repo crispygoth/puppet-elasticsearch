@@ -114,13 +114,6 @@ class elasticsearch::config {
       }
     }
 
-    $jvm_options = $elasticsearch::jvm_options
-    file { "${elasticsearch::configdir}/jvm.options":
-      content => template("${module_name}/etc/elasticsearch/jvm.options.erb"),
-      owner   => 'root',
-      group   => 'root',
-    }
-
     if $::elasticsearch::security_plugin != undef and ($::elasticsearch::security_plugin in ['shield', 'x-pack']) {
       file { "/etc/elasticsearch/${::elasticsearch::security_plugin}" :
         ensure => 'directory',
