@@ -406,7 +406,9 @@ define elasticsearch::instance (
       file { "${configdir}/${security_plugin}/system_key":
         ensure  => 'file',
         source  => $system_key,
-        mode    => '0400',
+        mode    => '0440',
+        owner   => 'root',
+        group   => $elasticsearch::elasticsearch_group,
         before  => Elasticsearch::Service[$name],
         require => File["${configdir}/${security_plugin}"],
       }

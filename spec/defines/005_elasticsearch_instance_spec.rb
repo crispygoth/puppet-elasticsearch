@@ -669,8 +669,9 @@ describe 'elasticsearch::instance', :type => 'define' do
               '/etc/elasticsearch/es-instance/shield/system_key'
             ).with(
               :source => '/tmp/key',
-              :mode => '0400',
-              :owner => 'elasticsearch'
+              :mode => '0440',
+              :owner => 'root',
+              :group => 'elasticsearch',
             ) }
           end
 
@@ -686,8 +687,9 @@ describe 'elasticsearch::instance', :type => 'define' do
               '/etc/elasticsearch/es-instance/x-pack/system_key'
             ).with(
               :source => 'puppet:///test/key',
-              :mode => '0400',
-              :owner => 'elasticsearch'
+              :mode => '0440',
+              :owner => 'root',
+              :group => 'elasticsearch',
             ) }
           end
         end
