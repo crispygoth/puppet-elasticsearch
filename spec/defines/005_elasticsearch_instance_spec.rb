@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-# rubocop:disable Metrics/LineLength
 describe 'elasticsearch::instance', :type => 'define' do
   let(:title) { 'es-instance' }
   let(:pre_condition) { 'class { "elasticsearch": }' }
@@ -196,7 +195,11 @@ describe 'elasticsearch::instance', :type => 'define' do
           it { should contain_file('/etc/elasticsearch/es-instance/log4j2.properties') }
           it { should contain_file('/etc/elasticsearch/es-instance/jvm.options') }
           it { should contain_file('/usr/share/elasticsearch/scripts') }
-          it { should contain_file('/etc/elasticsearch/es-instance/scripts').with(:target => '/usr/share/elasticsearch/scripts') }
+          it do
+            should contain_file('/etc/elasticsearch/es-instance').with(
+              :source => '/etc/elasticsearch'
+            )
+          end
         end
 
         context 'set in main class' do
@@ -218,7 +221,16 @@ describe 'elasticsearch::instance', :type => 'define' do
           it { should contain_file('/etc/elasticsearch-config/es-instance/logging.yml') }
           it { should contain_file('/etc/elasticsearch-config/es-instance/log4j2.properties') }
           it { should contain_file('/usr/share/elasticsearch/scripts') }
-          it { should contain_file('/etc/elasticsearch-config/es-instance/scripts').with(:target => '/usr/share/elasticsearch/scripts') }
+          it do
+            should contain_file('/etc/elasticsearch-config/scripts').with(
+              :source => '/usr/share/elasticsearch/scripts'
+            )
+          end
+          it do
+            should contain_file('/etc/elasticsearch-config/es-instance').with(
+              :source => '/etc/elasticsearch-config'
+            )
+          end
         end
 
         context 'set in instance' do
@@ -236,7 +248,16 @@ describe 'elasticsearch::instance', :type => 'define' do
           it { should contain_file('/etc/elasticsearch-config/es-instance/logging.yml') }
           it { should contain_file('/etc/elasticsearch-config/es-instance/log4j2.properties') }
           it { should contain_file('/usr/share/elasticsearch/scripts') }
-          it { should contain_file('/etc/elasticsearch-config/es-instance/scripts').with(:target => '/usr/share/elasticsearch/scripts') }
+          it do
+            should contain_file('/etc/elasticsearch/scripts').with(
+              :source => '/usr/share/elasticsearch/scripts'
+            )
+          end
+          it do
+            should contain_file('/etc/elasticsearch-config/es-instance').with(
+              :source => '/etc/elasticsearch'
+            )
+          end
         end
       end
 
@@ -277,7 +298,7 @@ describe 'elasticsearch::instance', :type => 'define' do
           }
 
           include_examples 'data directories',
-                          ['elasticsearch-data', 'elasticsearch-data/es-instance']
+                           ['elasticsearch-data', 'elasticsearch-data/es-instance']
         end
 
         context 'single from instance config' do
@@ -598,8 +619,8 @@ describe 'elasticsearch::instance', :type => 'define' do
         it { should contain_file('/var/log/elasticsearch/es-instance')
           .with(
             :owner => owner,
-            :group => nil,
-            :mode  => '0755'
+            :group => group,
+            :mode  => '0750'
           ) }
       end
 
@@ -713,11 +734,11 @@ describe 'elasticsearch::instance', :type => 'define' do
                     "/etc/elasticsearch/es-instance/#{plugin}"
                   ).with(
                     :ensure  => 'directory',
-                    :mode    => '0755',
+                    :mode    => '0750',
                     :source  => "/etc/elasticsearch/#{plugin}",
                     :recurse => 'remote',
                     :owner   => 'root',
-                    :group   => '0',
+                    :group   => 'elasticsearch',
                     :before  => 'Elasticsearch::Service[es-instance]'
                   )
                 )
@@ -740,11 +761,11 @@ describe 'elasticsearch::instance', :type => 'define' do
                     "/etc/elasticsearch/es-instance/#{plugin}"
                   ).with(
                     :ensure  => 'directory',
-                    :mode    => '0755',
+                    :mode    => '0750',
                     :source  => "/etc/elasticsearch/#{plugin}",
                     :recurse => 'remote',
                     :owner   => 'root',
-                    :group   => '0',
+                    :group   => 'elasticsearch',
                     :before  => 'Elasticsearch::Service[es-instance]',
                     :notify  => 'Elasticsearch::Service[es-instance]'
                   )
@@ -770,7 +791,7 @@ describe 'elasticsearch::instance', :type => 'define' do
         context 'from parent class' do
           it do
             should contain_file('/etc/elasticsearch/es-instance/jvm.options')
-              .with_content(/
+              .with_content(%r{
                 -Dfile.encoding=UTF-8.
                 -Dio.netty.noKeySetOptimization=true.
                 -Dio.netty.noUnsafe=true.
@@ -797,7 +818,7 @@ describe 'elasticsearch::instance', :type => 'define' do
                 -Xmx4g.
                 -Xss1m.
                 -server.
-              /xm)
+              }xm)
           end
         end
 
@@ -813,7 +834,7 @@ describe 'elasticsearch::instance', :type => 'define' do
 
           it do
             should contain_file('/etc/elasticsearch/es-instance/jvm.options')
-              .with_content(/
+              .with_content(%r{
                 -Dfile.encoding=UTF-8.
                 -Dio.netty.noKeySetOptimization=true.
                 -Dio.netty.noUnsafe=true.
@@ -840,7 +861,7 @@ describe 'elasticsearch::instance', :type => 'define' do
                 -Xmx8g.
                 -Xss1m.
                 -server.
-              /xm)
+              }xm)
           end
         end
       end
