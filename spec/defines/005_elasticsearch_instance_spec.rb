@@ -582,19 +582,18 @@ describe 'elasticsearch::instance', :type => 'define' do
         it { should contain_file('/etc/elasticsearch/es-instance')
           .with(
             :owner => 'root',
-            :group => 'root',
-            :mode  => '0755'
+            :group => 'root'
           ) }
         it { should contain_datacat('/etc/elasticsearch/es-instance/elasticsearch.yml')
           .with(
             :owner => 'root',
-            :group => 'root',
+            :group => group,
             :mode  => '0440'
           ) }
         it { should contain_file('/etc/elasticsearch/es-instance/elasticsearch.yml')
           .with(
             :owner => 'root',
-            :group => 'root',
+            :group => group,
             :mode  => '0440'
           ) }
         it { should contain_file('/etc/elasticsearch/es-instance/logging.yml')
