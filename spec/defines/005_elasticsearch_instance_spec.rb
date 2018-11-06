@@ -692,7 +692,7 @@ describe 'elasticsearch::instance', :type => 'define' do
               :source => '/tmp/key',
               :mode => '0440',
               :owner => 'root',
-              :group => 'elasticsearch',
+              :group => 'elasticsearch'
             ) }
           end
 
@@ -710,7 +710,7 @@ describe 'elasticsearch::instance', :type => 'define' do
               :source => 'puppet:///test/key',
               :mode => '0440',
               :owner => 'root',
-              :group => 'elasticsearch',
+              :group => 'elasticsearch'
             ) }
           end
         end

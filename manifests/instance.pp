@@ -478,7 +478,7 @@ define elasticsearch::instance (
       notify   => $notify_service,
       require  => Class['elasticsearch::package'],
       owner    => 'root',
-      group    => 'root',
+      group    => $elasticsearch::elasticsearch_group,
       mode     => '0440',
     }
 
