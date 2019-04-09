@@ -801,7 +801,6 @@ describe 'elasticsearch::instance', :type => 'define' do
                 -Dlog4j2.disable.jmx=true.
                 -XX:\+AlwaysPreTouch.
                 -XX:\+HeapDumpOnOutOfMemoryError.
-                -XX:\+PrintGCApplicationStoppedTime.
                 -XX:\+PrintGCDateStamps.
                 -XX:\+PrintGCDetails.
                 -XX:\+PrintTenuringDistribution.
@@ -844,7 +843,6 @@ describe 'elasticsearch::instance', :type => 'define' do
                 -Dlog4j2.disable.jmx=true.
                 -XX:\+AlwaysPreTouch.
                 -XX:\+HeapDumpOnOutOfMemoryError.
-                -XX:\+PrintGCApplicationStoppedTime.
                 -XX:\+PrintGCDateStamps.
                 -XX:\+PrintGCDetails.
                 -XX:\+PrintTenuringDistribution.
