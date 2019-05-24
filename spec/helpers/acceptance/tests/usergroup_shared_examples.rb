@@ -36,8 +36,7 @@ shared_examples 'user/group acceptance tests' do
       )
 
       %w[
-        /etc/elasticsearch/es-01/elasticsearch.yml
-        /usr/share/elasticsearch
+        /var/lib/elasticsearch
         /var/log/elasticsearch
       ].each do |path|
         describe file(path) do

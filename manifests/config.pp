@@ -26,7 +26,7 @@ class elasticsearch::config {
         ensure => 'directory',
         group  => 'root',
         owner  => 'root',
-        mode   => '0644';
+        mode   => '0755';
       $elasticsearch::datadir:
         ensure => 'directory',
         group  => $elasticsearch::elasticsearch_group,
@@ -50,12 +50,12 @@ class elasticsearch::config {
         ensure => 'directory',
         group  => 'root',
         owner  => 'root';
-      "${elasticsearch::params::homedir}/templates_import":
+      "${elasticsearch::homedir}/templates_import":
         ensure => 'directory',
         group  => 'root',
         owner  => 'root',
-        mode   => '0644';
-      "${elasticsearch::params::homedir}/scripts":
+        mode   => '0755';
+      "${elasticsearch::homedir}/scripts":
         ensure => 'directory',
         group  => 'root',
         owner  => 'root',
