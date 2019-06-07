@@ -1,3 +1,4 @@
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', '..', '..'))
 require 'puppet/provider/elastic_parsedfile'
 
 Puppet::Type.type(:elasticsearch_user_file).provide(
