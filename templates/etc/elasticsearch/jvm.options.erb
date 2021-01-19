@@ -9,9 +9,9 @@ end
 defaults = {
   '-Xms' => '-Xms1g',
   '-Xmx' => '-Xmx1g',
-  'UseConcMarkSweepGC' => '-XX:+UseConcMarkSweepGC',
-  'CMSInitiatingOccupancyFraction=' => '-XX:CMSInitiatingOccupancyFraction=75',
-  'UseCMSInitiatingOccupancyOnly' => '-XX:+UseCMSInitiatingOccupancyOnly',
+  'UseConcMarkSweepGC' => '8-14:-XX:+UseConcMarkSweepGC',
+  'CMSInitiatingOccupancyFraction=' => '8-14:-XX:CMSInitiatingOccupancyFraction=75',
+  'UseCMSInitiatingOccupancyOnly' => '8-14:-XX:+UseCMSInitiatingOccupancyOnly',
   '-Des.networkaddress.cache.ttl' => '-Des.networkaddress.cache.ttl=60',
   '-Des.networkaddress.cache.negative.ttl' => '-Des.networkaddress.cache.negative.ttl=10',
   'AlwaysPreTouch' => '-XX:+AlwaysPreTouch',
